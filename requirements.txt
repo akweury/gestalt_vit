@@ -1,0 +1,8 @@
+numpy==1.26.4
+opencv-python
+matplotlib
+Pillow
+torch==2.2.1
+torchvision==0.17.1
+timm
+wandb
