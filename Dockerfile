@@ -24,3 +24,6 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 RUN pip install debugpy
 RUN pip install pydevd-pycharm~=241.14494.241
+
+WORKDIR /storage
+WORKDIR /app
