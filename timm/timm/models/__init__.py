@@ -160,3 +160,4 @@ from ._registry import (
     get_pretrained_cfg_value as get_pretrained_cfg_value,
     get_arch_pretrained_cfgs as get_arch_pretrained_cfgs,
 )
+from .adaptive_vit_tiny import adaptive_vit_tiny_patch16_224
