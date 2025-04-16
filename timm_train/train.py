@@ -32,6 +32,12 @@ import torchvision.utils
 import yaml
 from torch.nn.parallel import DistributedDataParallel as NativeDDP
 
+import sys
+sys.path.insert(0, './timm')
+
+import timm
+model = timm.create_model('adaptive_vit_tiny_patch16_224')
+
 from timm import utils
 from timm.data import create_dataset, create_loader, resolve_data_config, Mixup, FastCollateMixup, AugMixDataset
 from timm.layers import convert_splitbn_model, convert_sync_batchnorm, set_fast_norm

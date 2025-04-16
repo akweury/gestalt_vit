@@ -22,7 +22,7 @@ CUDA_VISIBLE_DEVICES=6 python -m train /tiny-224 \
 
 
 
-CUDA_VISIBLE_DEVICES=6 python -m train /tiny-224 \
+CUDA_VISIBLE_DEVICES=5 python -m train /tiny-224 \
   --model adaptive_vit_tiny_patch16_224 \
   --input-size 3 224 224 \
   --epochs 200 \
