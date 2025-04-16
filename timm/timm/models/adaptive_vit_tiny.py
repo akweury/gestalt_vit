@@ -36,21 +36,25 @@ class AdaptivePatchVisionTransformer(VisionTransformer):
 
     def forward_features(self, x):
         B = x.shape[0]
-        x = self.patch_embed(x)  # [B, num_patches, dim]
+        x = self.patch_embed(x)
 
         if self.patch_masker is not None:
-            mask = self.patch_masker(x)  # mask shape: [B, num_patches]
-            x = x * mask.unsqueeze(-1)  # apply mask
+            mask = self.patch_masker(x)
+            x = x * mask.unsqueeze(-1)
 
-        cls_token = self.cls_token.expand(B, -1, -1)  # [B, 1, dim]
+        cls_token = self.cls_token.expand(B, -1, -1)
         x = torch.cat((cls_token, x), dim=1)
         x = self.pos_drop(x + self.pos_embed)
 
         for blk in self.blocks:
             x = blk(x)
-        x = self.norm(x)
 
-        return self.pre_logits(x[:, 0])
+        x = self.norm(x)
+        return x[:, 0]  # [CLS] token
+
+    def forward(self, x):
+        x = self.forward_features(x)
+        return self.head(x)  # logits
 
 
 @register_model
