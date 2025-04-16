@@ -21,6 +21,5 @@ python -m src.train --device 10
 
 ```
 
--d --gpus all --rm --shm-size=8g --name vit_tiny_train -v
-
-/storage-01/datasets/tiny-imagenet-200-224/tiny-224
+### Requirements
+timm==1.0.15
