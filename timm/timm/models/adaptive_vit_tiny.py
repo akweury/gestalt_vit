@@ -26,6 +26,8 @@ class AdaptivePatchVisionTransformer(VisionTransformer):
         kwargs.pop('pretrained_cfg', None)
         kwargs.pop('features_only', None)
         kwargs.pop('global_pool', None)
+        kwargs.pop('pretrained_cfg_overlay', None)
+
 
         super().__init__(*args, **kwargs)
         self.patch_masker = patch_masker  # Optional module to learn patch importance
