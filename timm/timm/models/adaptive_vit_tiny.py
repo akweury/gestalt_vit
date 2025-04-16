@@ -1,4 +1,3 @@
-# Created by MacBook Pro at 16.04.25
 import torch
 import torch.nn as nn
 from timm.models.vision_transformer import VisionTransformer, _cfg
@@ -23,6 +22,11 @@ class SimplePatchMasker(nn.Module):
 
 class AdaptivePatchVisionTransformer(VisionTransformer):
     def __init__(self, *args, patch_masker=None, **kwargs):
+        # Remove extra args that timm might pass in
+        kwargs.pop('pretrained_cfg', None)
+        kwargs.pop('features_only', None)
+        kwargs.pop('global_pool', None)
+
         super().__init__(*args, **kwargs)
         self.patch_masker = patch_masker  # Optional module to learn patch importance
 
@@ -47,12 +51,11 @@ class AdaptivePatchVisionTransformer(VisionTransformer):
 
 @register_model
 def adaptive_vit_tiny_patch16_224(pretrained=False, **kwargs):
-    masker = SimplePatchMasker(embed_dim=192, threshold=0.5)
-    model = AdaptivePatchVisionTransformer(
+    model_args = dict(
         patch_size=16, embed_dim=192, depth=12, num_heads=3,
         mlp_ratio=4, qkv_bias=True, norm_layer=nn.LayerNorm,
-        patch_masker=masker,
-        **kwargs
+        patch_masker=SimplePatchMasker(embed_dim=192, threshold=0.5),
     )
+    model = AdaptivePatchVisionTransformer(**model_args, **kwargs)
     model.default_cfg = _cfg()
     return model
