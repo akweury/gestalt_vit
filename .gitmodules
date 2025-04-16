@@ -1,3 +1,0 @@
-[submodule "timm"]
-	path = timm
-	url = https://github.com/huggingface/pytorch-image-models.git
