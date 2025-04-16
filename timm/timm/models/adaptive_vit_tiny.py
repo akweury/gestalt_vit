@@ -23,10 +23,12 @@ class SimplePatchMasker(nn.Module):
 class AdaptivePatchVisionTransformer(VisionTransformer):
     def __init__(self, *args, patch_masker=None, **kwargs):
         # Remove extra args that timm might pass in
-        kwargs.pop('pretrained_cfg', None)
-        kwargs.pop('features_only', None)
-        kwargs.pop('global_pool', None)
-        kwargs.pop('pretrained_cfg_overlay', None)
+        EXTRA_KWARGS = [
+            'pretrained_cfg', 'features_only', 'global_pool',
+            'pretrained_cfg_overlay', 'cache_dir'
+        ]
+        for k in EXTRA_KWARGS:
+            kwargs.pop(k, None)
 
 
         super().__init__(*args, **kwargs)
